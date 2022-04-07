@@ -1,8 +1,9 @@
 NAME = libgf.a
 
 FILES = \
-	gf_basics gf_color gf_core gf_line\
-	gf_int_pxput
+	gf_basics gf_camera gf_color gf_core gf_line \
+	gf_vector gf_vector2 \
+	gf_int_pxput gf_int_utils
 
 OFILES = $(FILES:%=%.o)
 

@@ -1,7 +1,8 @@
 #include <mlx/mlx.h>
 #include "gf.h"
 
-int	gf_ctoi(t_gf_color color){
+int	gf_ctoi(t_gf_color color)
+{
 	return ((color.r << 16) + (color.g << 8) + color.b);
 }
 

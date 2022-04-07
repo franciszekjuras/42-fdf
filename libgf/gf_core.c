@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mlx/mlx.h>
+#include <libft/libft.h>
 #include "gf.h"
 #include "gf_int.h"
 
@@ -13,20 +14,15 @@ t_gf_point	gf_point(int x, int y)
 	return (point);
 }
 
-void	gf_point_put(t_gf_ctx* ctx, t_gf_point point, t_gf_color color)
+void	gf_point_put(t_gf_ctx *ctx, t_gf_point point, t_gf_color color)
 {
 	ctx->img.pxput(&ctx->img, point,
 		mlx_get_color_value(ctx->mlx, gf_ctoi(color)));
 }
 
-void	gf_point_put_gc(t_gf_ctx* ctx, t_gf_point point, int good_color)
-{
-	ctx->img.pxput(&ctx->img, point, good_color);
-}
-
 t_gf_img	gf_img(void *mlx, int w, int h)
 {
-	t_gf_img 	img;
+	t_gf_img	img;
 	int			bitspp;
 
 	img.img = mlx_new_image(mlx, w, h);
@@ -42,4 +38,9 @@ t_gf_img	gf_img(void *mlx, int w, int h)
 		exit(1);
 	}
 	return (img);
+}
+
+void	gf_img_clear(t_gf_img *img)
+{	
+	ft_bzero(img->adr, img->lnlen * img->h);
 }

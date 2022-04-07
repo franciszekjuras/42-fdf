@@ -1,0 +1,10 @@
+fdf
+*.o
+main.c
+*.a
+*test*
+!**/test/
+*.sh
+*.out
+/scripts/
+*.txt

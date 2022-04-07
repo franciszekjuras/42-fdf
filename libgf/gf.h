@@ -1,6 +1,39 @@
 #ifndef GF_H
 # define GF_H
 
+# define GF_PI 3.14159265358979323846
+# define GF_DEGTORAD 0.0174532925199432957692
+# define GF_RADTODEG 57.2957795130823208768
+
+typedef struct s_gf_point
+{
+	int	x;
+	int	y;
+}	t_gf_point;
+
+typedef struct s_gf_vec3
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_gf_vec3;
+
+typedef struct s_gf_camera
+{
+	double		yaw;
+	double		pitch;
+	double		roll;
+	t_gf_vec3	pos;
+	t_gf_vec3	x;
+	t_gf_vec3	y;
+	t_gf_vec3	z;
+	double		fov;
+	double		scale;
+	double		iso_dist;
+	t_gf_point	center;
+	int			(*project)(struct s_gf_camera *, t_gf_point *, t_gf_vec3);
+}	t_gf_camera;
+
 typedef struct s_gf_color
 {
 	int	b;
@@ -15,12 +48,6 @@ typedef struct s_gf_grad
 	t_gf_color	end;
 }	t_gf_grad;
 
-typedef struct s_gf_point
-{
-	int	x;
-	int	y;
-}	t_gf_point;
-
 typedef struct s_gf_img
 {
 	void	*img;
@@ -30,7 +57,7 @@ typedef struct s_gf_img
 	int		endn;
 	int		w;
 	int		h;
-	void	(*pxput)(struct s_gf_img* , t_gf_point, int);
+	void	(*pxput)(struct s_gf_img *, t_gf_point, int);
 }	t_gf_img;
 
 typedef struct s_gf_ctx
@@ -39,21 +66,36 @@ typedef struct s_gf_ctx
 	void		*win;
 	t_gf_img	img;
 	int			w;
-	int 		h;
+	int			h;
 	int			do_repaint;
 	void		*data;
 }	t_gf_ctx;
 
-
+/*gf_core.c*/
 t_gf_point	gf_point(int x, int y);
+void		gf_point_put(t_gf_ctx *ctx, t_gf_point point, t_gf_color color);
+t_gf_img	gf_img(void *mlx, int w, int h);
+void		gf_img_clear(t_gf_img *img);
+/*gf_basics.c*/
+void		gf_framebox_put(t_gf_ctx *ctx, t_gf_point pt_tl,
+				t_gf_point pt_br, t_gf_color color);
+/*gf_line.c*/
+void		gf_line_put(t_gf_ctx *ctx,
+				t_gf_point beg, t_gf_point end, t_gf_color color);
+/*gf_color.c*/
 int			gf_ctoi(t_gf_color color);
 t_gf_color	gf_rgb(int r, int g, int b);
-void		gf_point_put(t_gf_ctx* ctx, t_gf_point point, t_gf_color color);
-void		gf_point_put_gc(t_gf_ctx* ctx, t_gf_point point, int good_color);
-void		gf_framebox_put(t_gf_ctx* ctx, t_gf_point pt_tl,
-				t_gf_point pt_br, t_gf_color color);
-void	gf_line_put(t_gf_ctx* ctx, 
-				t_gf_point beg, t_gf_point end, t_gf_color color);
-t_gf_img	gf_img(void *mlx, int w, int h);
-
+/*gf_vector.c*/
+t_gf_vec3	gf_vec3(double x, double y, double z);
+t_gf_vec3	gf_vec3_neg(t_gf_vec3 v);
+t_gf_vec3	gf_vec3_sub(t_gf_vec3 v1, t_gf_vec3 v2);
+t_gf_vec3	gf_vec3_add(t_gf_vec3 v1, t_gf_vec3 v2);
+t_gf_vec3	gf_vec3_mult(t_gf_vec3 v, double m);
+double		gf_vec3_dot(t_gf_vec3 v1, t_gf_vec3 v2);
+t_gf_vec3	gf_vec3_cross(t_gf_vec3 v1, t_gf_vec3 v2);
+t_gf_vec3	gf_vec3_norm(t_gf_vec3 v);
+/*gf_camera.c*/
+void		gf_camera_angle_changed(t_gf_camera *cam);
+int			gf_project_rectilinear(t_gf_camera *cam,
+				t_gf_point *pt, t_gf_vec3 v);
 #endif

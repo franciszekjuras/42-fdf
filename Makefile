@@ -1,7 +1,8 @@
 NAME = fdf
 
 FILES = \
-	fdf
+	fdf \
+	get_next_line get_next_line_utils
 
 OFILES = $(FILES:%=%.o)
 CFLAGS = -Wall -Wextra
