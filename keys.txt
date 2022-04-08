@@ -1,0 +1,9 @@
+         ______                _____   
+       _/ Roll \___    [Home] |pg|pg|  
+      [q] [e|r]eset\          |up|dn|  
+      ______                  Up/Down  
+     / _|w|_\  ______ [l]ock           
+    / |a s d| / Zoom \__     Position  
+    \ Angle / |[f]arther\     _ /\ _   
+              [c]loser  /    |< \/ >|  
+

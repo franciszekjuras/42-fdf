@@ -7,4 +7,3 @@ main.c
 *.sh
 *.out
 /scripts/
-*.txt
