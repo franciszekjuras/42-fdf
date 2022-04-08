@@ -6,14 +6,14 @@
 /*   By: fjuras <fjuras@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:03:48 by fjuras            #+#    #+#             */
-/*   Updated: 2022/03/03 11:32:02 by fjuras           ###   ########.fr       */
+/*   Updated: 2022/04/08 17:27:36 by fjuras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1000
 # endif
 # include <stddef.h>
 
