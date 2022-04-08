@@ -2,8 +2,8 @@
 # define GF_H
 
 # define GF_PI 3.14159265358979323846
-# define GF_DEGTORAD 0.0174532925199432957692
-# define GF_RADTODEG 57.2957795130823208768
+# define GF_DEG 0.0174532925199432957692
+# define GF_INVDEG 57.2957795130823208768
 
 typedef struct s_gf_point
 {
@@ -94,6 +94,10 @@ t_gf_vec3	gf_vec3_mult(t_gf_vec3 v, double m);
 double		gf_vec3_dot(t_gf_vec3 v1, t_gf_vec3 v2);
 t_gf_vec3	gf_vec3_cross(t_gf_vec3 v1, t_gf_vec3 v2);
 t_gf_vec3	gf_vec3_norm(t_gf_vec3 v);
+void		gf_vec3_ineg(t_gf_vec3 *v);
+void		gf_vec3_isub(t_gf_vec3 *v1, t_gf_vec3 v2);
+void		gf_vec3_iadd(t_gf_vec3 *v1, t_gf_vec3 v2);
+void		gf_vec3_imult(t_gf_vec3 *v, double m);
 /*gf_camera.c*/
 void		gf_camera_angle_changed(t_gf_camera *cam);
 int			gf_project_rectilinear(t_gf_camera *cam,

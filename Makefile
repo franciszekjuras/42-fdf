@@ -1,7 +1,7 @@
 NAME = fdf
 
 FILES = \
-	fdf \
+	fdf camera\
 	get_next_line get_next_line_utils
 
 OFILES = $(FILES:%=%.o)
