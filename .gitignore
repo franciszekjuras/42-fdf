@@ -7,3 +7,4 @@ main.c
 *.sh
 *.out
 /scripts/
+*.fdf

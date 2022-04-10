@@ -93,6 +93,7 @@ t_gf_vec3	gf_vec3_add(t_gf_vec3 v1, t_gf_vec3 v2);
 t_gf_vec3	gf_vec3_mult(t_gf_vec3 v, double m);
 double		gf_vec3_dot(t_gf_vec3 v1, t_gf_vec3 v2);
 t_gf_vec3	gf_vec3_cross(t_gf_vec3 v1, t_gf_vec3 v2);
+double		gf_vec3_len(t_gf_vec3 v);
 t_gf_vec3	gf_vec3_norm(t_gf_vec3 v);
 void		gf_vec3_ineg(t_gf_vec3 *v);
 void		gf_vec3_isub(t_gf_vec3 *v1, t_gf_vec3 v2);
