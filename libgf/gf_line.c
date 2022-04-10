@@ -71,7 +71,7 @@ void	gf_line_put(
 {
 	int	good_color;
 
-	if (!(gf_inimage(&ctx->img, &p1) && gf_inimage(&ctx->img, &p2)))
+	if (!gf_lineclip(&ctx->img, &p1, &p2))
 		return ;
 	good_color = mlx_get_color_value(ctx->mlx, gf_ctoi(color));
 	if (ft_abs(p2.x - p1.x) > ft_abs(p2.y - p1.y))

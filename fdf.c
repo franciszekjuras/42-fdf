@@ -29,22 +29,25 @@ int	close_app(t_gf_ctx *ctx)
 	// cam = &data->cam;
 int	handle_key(int keycode, t_gf_ctx *ctx)
 {
+	double	step;
+
+	step = 0.5 * FDF_GRID_SEP;
 	if (GF_K_ESC == keycode)
 		close_app(ctx);
 	else if (GF_K_HOME == keycode)
 		camera_init(ctx);
 	else if (GF_K_LEFT == keycode)
-		camera_move(ctx, 0., 0.1, 0.);
+		camera_move(ctx, 0., step, 0.);
 	else if (GF_K_RIGHT == keycode)
-		camera_move(ctx, 0., -0.1, 0.);
+		camera_move(ctx, 0., -step, 0.);
 	else if (GF_K_UP == keycode)
-		camera_move(ctx, 0.1, 0., 0.);
+		camera_move(ctx, step, 0., 0.);
 	else if (GF_K_DONW == keycode)
-		camera_move(ctx, -0.1, 0., 0.);
+		camera_move(ctx, -step, 0., 0.);
 	else if (GF_K_PGUP == keycode)
-		camera_move(ctx, 0.0, 0., 0.1);
+		camera_move(ctx, 0.0, 0., step);
 	else if (GF_K_PGDN == keycode)
-		camera_move(ctx, 0.0, 0., -0.1);
+		camera_move(ctx, 0.0, 0., -step);
 	else if ('a' == keycode)
 		camera_incr_angle(ctx, 1. * GF_DEG, 0., 0.);
 	else if ('d' == keycode)
@@ -78,7 +81,7 @@ static void	render_map_cast(t_map *map, t_gf_camera *cam)
 		while (x < map->dx)
 		{
 			i = x + y * map->dx;
-			map->valid[i] = cam->project(cam, &map->cast[i], map->mesh[i]);
+			map->dist[i] = cam->project(cam, &map->cast[i], map->mesh[i]);
 			++x;
 		}
 		++y;
@@ -89,7 +92,7 @@ static void	render_map_line_put(t_gf_ctx *ctx, t_map *map, int i, int j)
 {
 	t_gf_color	color;
 
-	color = gf_rgb(255, 200, 200);	
+	color = gf_rgb(255, 200, 200);
 	gf_line_put(ctx, map->cast[i], map->cast[j], color);
 }
 
@@ -99,23 +102,23 @@ static void	render_map_draw(t_gf_ctx *ctx, t_map *map)
 	int			y;
 	int			i;
 
-	y = 0;
-	while (y < map->dy)
+	x = 0;
+	while (x < map->dx)
 	{
-		x = 0;
-		while (x < map->dx)
+		y = 0;
+		while (y < map->dy)
 		{
-			i = x + y * map->dx;
-			if (map->valid[i])
+			i = y + x * map->dy;
+			if (map->dist[i] > 0.)
 			{
-				if (map->valid[i + 1] && x + 1 < map->dx)
+				if (y + 1 < map->dy && map->dist[i + 1] > 0.)
 					render_map_line_put(ctx, map, i, i + 1);
-				if (map->valid[i + map->dx] && y + 1 < map->dy)
-					render_map_line_put(ctx, map, i, i + map->dx);
+				if (x + 1 < map->dx && map->dist[i + map->dy] > 0)
+					render_map_line_put(ctx, map, i, i + map->dy);
 			}
-			++x;
+			++y;
 		}
-		++y;
+		++x;
 	}
 }
 

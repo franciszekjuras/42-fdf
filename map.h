@@ -9,10 +9,9 @@ typedef struct s_map
 {
 	t_gf_vec3	*mesh;
 	t_gf_point	*cast;
-	int			*valid;
 	double		*dist;
-	int			dx;
 	int			dy;
+	int			dx;
 }	t_map;
 
 void	map_read(t_map *map, int fd);

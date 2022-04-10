@@ -46,7 +46,7 @@ void	gf_camera_angle_changed(t_gf_camera *cam)
 			-(s[0] * s[1] * c[2] - c[0] * s[2]), -(c[1] * c[2]));
 }
 
-int	gf_project_rectilinear(t_gf_camera *cam, t_gf_point *pt, t_gf_vec3 v)
+double	gf_project_rectilinear(t_gf_camera *cam, t_gf_point *pt, t_gf_vec3 v)
 {
 	t_gf_vec3	d;
 	t_gf_vec3	r;
@@ -57,9 +57,9 @@ int	gf_project_rectilinear(t_gf_camera *cam, t_gf_point *pt, t_gf_vec3 v)
 	r.y = gf_vec3_dot(d, cam->y);
 	r.z = gf_vec3_dot(d, cam->z);
 	if (r.z <= 0.)
-		return (0);
+		return (r.z);
 	norm = cam->scale / (cam->fov * r.z);
 	pt->x = gf_iround(r.x * norm) + cam->center.x;
 	pt->y = gf_iround(r.y * norm) + cam->center.y;
-	return (1);
+	return (r.z);
 }
