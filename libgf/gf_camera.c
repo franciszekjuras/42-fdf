@@ -63,3 +63,23 @@ int	gf_project_rectilinear(t_gf_camera *cam, t_gf_point *pt, t_gf_vec3 v)
 	pt->y = gf_iround(r.y * norm) + cam->center.y;
 	return (1);
 }
+
+int	gf_project_stereographic(t_gf_camera *cam, t_gf_point *pt, t_gf_vec3 v)
+{
+	t_gf_vec3	d;
+	t_gf_vec3	r;
+	double		norm;
+	double		th;
+	double		rp;
+
+	d = gf_vec3_sub(v, cam->pos);
+	r.x = gf_vec3_dot(d, cam->x);
+	r.y = gf_vec3_dot(d, cam->y);
+	r.z = gf_vec3_dot(d, cam->z);
+	rp = sqrt(r.x * r.x + r.y * r.y);
+	th = atan2(rp, r.z);
+	norm = 2. * tan(th * 0.5) * cam->scale / (cam->fov * rp);
+	pt->x = gf_iround(r.x * norm) + cam->center.x;
+	pt->y = gf_iround(r.y * norm) + cam->center.y;
+	return (1);
+}

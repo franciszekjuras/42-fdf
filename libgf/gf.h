@@ -113,4 +113,6 @@ void		gf_vec3_imult(t_gf_vec3 *v, double m);
 void		gf_camera_angle_changed(t_gf_camera *cam);
 int			gf_project_rectilinear(t_gf_camera *cam,
 				t_gf_point *pt, t_gf_vec3 v);
+int			gf_project_stereographic(t_gf_camera *cam,
+				t_gf_point *pt, t_gf_vec3 v);
 #endif

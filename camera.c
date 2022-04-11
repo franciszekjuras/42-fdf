@@ -81,8 +81,9 @@ void	camera_init(t_gf_ctx *ctx)
 	vec = gf_vec3_add(map->mesh[map->dx * map->dy - 1], map->mesh[0]);
 	gf_vec3_iadd(&cam->pos, gf_vec3_mult(vec, 0.5));
 	cam->center = gf_point(ctx->w / 2, ctx->h / 2);
-	cam->fov = 0.5;
+	cam->fov = 4.;
 	cam->iso_dist = 5.;
 	cam->scale = ctx->w;
-	cam->project = gf_project_rectilinear;
+	// cam->project = gf_project_rectilinear;
+	cam->project = gf_project_stereographic;
 }
