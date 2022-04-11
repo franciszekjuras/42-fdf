@@ -7,14 +7,11 @@
 #include <libft/libft.h>
 #include <libgf/gf.h>
 #include <libgf/gf_keys.h>
+#include "render.h"
 #include "camera.h"
 #include "map.h"
 #include "fdf.h"
 
-int	render(t_gf_ctx *ctx);
-
-	// mlx_destroy_window(ctx->mlx, ctx->win);
-	// mlx_destroy_display(ctx->mlx);
 int	close_app(t_gf_ctx *ctx)
 {
 	(void) ctx;
@@ -22,11 +19,6 @@ int	close_app(t_gf_ctx *ctx)
 	return (0);
 }
 
-	// fprintf(stderr, "Key: %#X\n", keycode);
-	// t_data		*data;
-	// t_gf_camera	*cam;
-	// data = ctx->data;
-	// cam = &data->cam;
 int	handle_key(int keycode, t_gf_ctx *ctx)
 {
 	double	step;
@@ -60,98 +52,19 @@ int	handle_key(int keycode, t_gf_ctx *ctx)
 	return (0);
 }
 
-	// i = 0;
-	// while (i < data->line_len - 1)
-	// {
-	// 	if (data->cam.project(&data->cam, &pts[0], data->line[i])
-	// 		&& data->cam.project(&data->cam, &pts[1], data->line[i + 1]))
-	// 		gf_line_put(ctx, pts[0], pts[1], color);
-	// 	++i;
-	// }
-
-static void	render_map_cast(t_map *map, t_gf_camera *cam)
-{
-	int		x;
-	int		y;
-	int		i;
-	y = 0;
-	while (y < map->dy)
-	{
-		x = 0;
-		while (x < map->dx)
-		{
-			i = x + y * map->dx;
-			map->dist[i] = cam->project(cam, &map->cast[i], map->mesh[i]);
-			++x;
-		}
-		++y;
-	}
-}
-
-static void	render_map_line_put(t_gf_ctx *ctx, t_map *map, int i, int j)
-{
-	t_gf_color	color;
-
-	color = gf_rgb(255, 200, 200);
-	gf_line_put(ctx, map->cast[i], map->cast[j], color);
-}
-
-static void	render_map_draw(t_gf_ctx *ctx, t_map *map)
-{
-	int			x;
-	int			y;
-	int			i;
-
-	x = 0;
-	while (x < map->dx)
-	{
-		y = 0;
-		while (y < map->dy)
-		{
-			i = y + x * map->dy;
-			if (map->dist[i] > 0.)
-			{
-				if (y + 1 < map->dy && map->dist[i + 1] > 0.)
-					render_map_line_put(ctx, map, i, i + 1);
-				if (x + 1 < map->dx && map->dist[i + map->dy] > 0)
-					render_map_line_put(ctx, map, i, i + map->dy);
-			}
-			++y;
-		}
-		++x;
-	}
-}
-
-int	render(t_gf_ctx *ctx)
-{
-	t_data	*data;
-
-	gf_img_clear(&ctx->img);
-	data = ctx->data;
-	render_map_cast(&data->map, &data->cam);
-	render_map_draw(ctx, &data->map);
-	mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img.img, 0, 0);
-	return (0);
-}
-
-	// data->frame = gf_point(0, ctx->h / 2);
-	// data->frame = gf_point(ctx->w / 2, ctx->h / 2);
-	// data->line_len = 10;
-	// data->line = ft_calloc(data->line_len, sizeof(t_gf_vec3));
-	// data->line[0] = gf_vec3(0.5, 0.5, 0.);
-	// data->line[1] = gf_vec3(-0.5, 0.5, 0.);
-	// data->line[2] = gf_vec3(0., 0., 1.);
-	// data->line[3] = gf_vec3(0.5, -0.5, 0.);
-	// data->line[4] = gf_vec3(-0.5, -0.5, 0.);
-	// data->line[5] = gf_vec3(0., 0., 1.);
-	// data->line[6] = gf_vec3(0.5, 0.5, 0.);
-	// data->line[7] = gf_vec3(0.5, -0.5, 0.);
-	// data->line[8] = gf_vec3(-0.5, -0.5, 0.);
-	// data->line[9] = gf_vec3(-0.5, 0.5, 0.);
 void	ctx_data_init(t_gf_ctx *ctx, t_data *data, int fd)
 {
+	t_gf_color	col_ntrl;
+	t_gf_color	col_pos;
+	t_gf_color	col_neg;
+
+	col_ntrl = gf_rgb(255, 255, 255);
+	col_pos = gf_rgb(255, 30, 30);
+	col_neg = gf_rgb(30, 40, 200);
 	ctx->data = data;
 	map_read(&data->map, fd);
+	data->grad_pos = gf_grad(col_ntrl, col_pos, 0, data->map.max);
+	data->grad_neg = gf_grad(col_neg, col_ntrl, data->map.min, 0);
 	camera_init(ctx);
 }
 
@@ -161,8 +74,8 @@ void	context_init(t_gf_ctx *ctx)
 	fprintf(stderr, "init mlx...\n");
 	ctx->mlx = mlx_init();
 	fprintf(stderr, "mlx_init(): %p\n", ctx->mlx);
-	ctx->w = 1200;
-	ctx->h = 800;
+	ctx->w = 1600;
+	ctx->h = 900;
 	ctx->win = mlx_new_window(ctx->mlx, ctx->w, ctx->h, "Hello there");
 	ctx->img = gf_img(ctx->mlx, ctx->w, ctx->h);
 	ctx->do_repaint = 1;

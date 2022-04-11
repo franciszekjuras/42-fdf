@@ -31,7 +31,7 @@ typedef struct s_gf_camera
 	double		scale;
 	double		iso_dist;
 	t_gf_point	center;
-	double		(*project)(struct s_gf_camera *, t_gf_point *, t_gf_vec3);
+	int			(*project)(struct s_gf_camera *, t_gf_point *, t_gf_vec3);
 }	t_gf_camera;
 
 typedef struct s_gf_color
@@ -46,6 +46,12 @@ typedef struct s_gf_grad
 {
 	t_gf_color	beg;
 	t_gf_color	end;
+	double		va;
+	double		vr;
+	double		vg;
+	double		vb;
+	double		ibeg;
+	double		iend;
 }	t_gf_grad;
 
 typedef struct s_gf_img
@@ -87,6 +93,8 @@ int			gf_lineclip(t_gf_img *img, t_gf_point *pt1, t_gf_point *pt2);
 /*gf_color.c*/
 int			gf_ctoi(t_gf_color color);
 t_gf_color	gf_rgb(int r, int g, int b);
+t_gf_grad	gf_grad(t_gf_color beg, t_gf_color end, double ibeg, double iend);
+t_gf_color	gf_color_grad(double i, t_gf_grad *grad);
 /*gf_vector.c*/
 t_gf_vec3	gf_vec3(double x, double y, double z);
 t_gf_vec3	gf_vec3_neg(t_gf_vec3 v);
@@ -103,6 +111,6 @@ void		gf_vec3_iadd(t_gf_vec3 *v1, t_gf_vec3 v2);
 void		gf_vec3_imult(t_gf_vec3 *v, double m);
 /*gf_camera.c*/
 void		gf_camera_angle_changed(t_gf_camera *cam);
-double		gf_project_rectilinear(t_gf_camera *cam,
+int			gf_project_rectilinear(t_gf_camera *cam,
 				t_gf_point *pt, t_gf_vec3 v);
 #endif

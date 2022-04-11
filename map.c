@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <math.h>
 #include <limits.h>
 #include <libft/libft.h>
 #include <libgf/gf.h>
@@ -48,6 +49,10 @@ static void	map_parse_number(t_map *map, int x, int y, char	*str)
 	if (np == 0)
 		map_read_error("Unequal line lengths", 0);
 	v = ft_strtonum(&np, LLONG_MIN, LLONG_MAX, &err);
+	if (v > map->max)
+		map->max = v;
+	if (v < map->min)
+		map->min = v;
 	if (err || *np != '\0')
 		map_read_error("Not a valid number: ", str);
 	map->mesh[y + x * map->dy] = gf_vec3(FDF_GRID_SEP * x, FDF_GRID_SEP * y, v);
@@ -58,6 +63,8 @@ static void	map_read_list_str(t_map *map, t_list_str *node, char **row)
 	int		x;
 	int		y;
 
+	map->min = INFINITY;
+	map->max = -INFINITY;
 	x = 0;
 	while (node != 0)
 	{
@@ -94,7 +101,7 @@ void	map_read(t_map *map, int fd)
 		map_read_error("Empty first row", 0);
 	map->mesh = ft_calloc(map->dy * map->dx, sizeof(t_gf_vec3));
 	map->cast = ft_calloc(map->dy * map->dx, sizeof(t_gf_point));
-	map->dist = ft_calloc(map->dy * map->dx, sizeof(double));
+	map->valid = ft_calloc(map->dy * map->dx, sizeof(int));
 	map_read_list_str(map, node, row);
 	list_str_del_forw(root.next);
 }
