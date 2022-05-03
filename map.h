@@ -3,7 +3,7 @@
 
 # include <libgf/gf.h>
 
-# define FDF_GRID_SEP 10
+# define FDF_GRID_SEP 100
 
 typedef struct s_map
 {

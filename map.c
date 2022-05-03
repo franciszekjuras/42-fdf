@@ -3,7 +3,6 @@
 #include <limits.h>
 #include <libft/libft.h>
 #include <libgf/gf.h>
-#include "get_next_line.h"
 #include "list_str.h"
 #include "fdf.h"
 
@@ -24,7 +23,7 @@ static int	read_lines_fd(t_list_str *node, int fd)
 	char	*line;
 
 	i = 0;
-	line = get_next_line(fd);
+	line = ft_get_next_line(fd);
 	while (line != 0)
 	{
 		n = ft_strlen(line);
@@ -32,7 +31,7 @@ static int	read_lines_fd(t_list_str *node, int fd)
 			line[n-1] = '\0';
 		node = list_str_add(node);
 		node->str = line;
-		line = get_next_line(fd);
+		line = ft_get_next_line(fd);
 		++i;
 	}
 	return (i);

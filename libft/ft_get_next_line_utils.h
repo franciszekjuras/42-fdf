@@ -1,51 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_get_next_line_utils.h                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fjuras <fjuras@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:03:48 by fjuras            #+#    #+#             */
-/*   Updated: 2022/04/08 17:27:36 by fjuras           ###   ########.fr       */
+/*   Updated: 2022/05/01 23:17:27 by fjuras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef FT_GET_NEXT_LINE_UTILS_H
+# define FT_GET_NEXT_LINE_UTILS_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1000
 # endif
 # include <stddef.h>
-
-/*
-#include <stdio.h>
-#include <stdlib.h>
-int	incr(int inc);
-
-static void	*xmalloc(unsigned int size)
-{
-	void		*ptr;
-
-	if (incr(-1) == 0)
-		ptr = 0;
-	else
-		ptr = malloc(size);
-	fprintf(stderr, "malloc:%p\n", ptr);
-	return (ptr);
-}
-
-static void	xfree(void *ptr)
-{
-	fprintf(stderr, "free  :%p\n", ptr);
-	free(ptr);
-}
-
-#define malloc(x) xmalloc(x)
-#define free(x) xfree(x)
-*/
-
-char	*get_next_line(int fd);
-void	*gnl_close(int fd);
 
 typedef struct s_list	t_list;
 
@@ -56,5 +26,9 @@ struct s_list
 	size_t	size;
 	t_list	*next;
 };
+
+size_t	ft_strlen_null(const char *s);
+char	*ft_strnsplit(char *str, size_t n);
+int		node_appbuf(t_list *node, const char *buf);
 
 #endif

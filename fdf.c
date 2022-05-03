@@ -70,10 +70,7 @@ void	ctx_data_init(t_gf_ctx *ctx, t_data *data, int fd)
 
 void	context_init(t_gf_ctx *ctx)
 {
-	ctx->do_repaint = 1;
-	fprintf(stderr, "init mlx...\n");
 	ctx->mlx = mlx_init();
-	fprintf(stderr, "mlx_init(): %p\n", ctx->mlx);
 	ctx->w = 1600;
 	ctx->h = 900;
 	ctx->win = mlx_new_window(ctx->mlx, ctx->w, ctx->h, "Hello there");

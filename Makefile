@@ -1,12 +1,11 @@
 NAME = fdf
 
-FILES = \
-	fdf camera map render list_str\
-	get_next_line get_next_line_utils
+FILES = fdf camera map render list_str
 
 OFILES = $(FILES:%=%.o)
 CFLAGS = -Wall -Wextra
 OPTIM = -O3
+export OPTIM
 INC = -I.
 LIBS= -lgf -lft -lmlx -lXext -lX11 -lm
 LIBS_FILES = libft/libft.a libgf/libgf.a mlx/libmlx.a

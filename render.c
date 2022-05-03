@@ -1,4 +1,7 @@
+#include <time.h>
+#include <stdio.h>
 #include <mlx/mlx.h>
+#include <libft/libft.h>
 #include <libgf/gf.h>
 #include "fdf.h"
 
@@ -64,12 +67,20 @@ static void	render_map_draw(t_gf_ctx *ctx, t_map *map)
 
 int	render(t_gf_ctx *ctx)
 {
-	t_data	*data;
+	t_data	*data;	
+	struct timespec time_crr;
+	struct timespec time_prev;
+	long			nanos;
 
 	gf_img_clear(&ctx->img);
 	data = ctx->data;
 	render_map_cast(&data->map, &data->cam);
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time_prev);
 	render_map_draw(ctx, &data->map);
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time_crr);
+	nanos = (1000000000l * (time_crr.tv_sec - time_prev.tv_sec)
+		+ (time_crr.tv_nsec - time_prev.tv_nsec));
+	ft_dprintf(2, "%d\n", (int) (nanos/1000));
 	mlx_put_image_to_window(ctx->mlx, ctx->win, ctx->img.img, 0, 0);
 	return (0);
 }

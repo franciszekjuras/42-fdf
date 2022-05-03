@@ -1,52 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_get_next_line_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fjuras <fjuras@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 15:14:11 by fjuras            #+#    #+#             */
-/*   Updated: 2022/03/03 11:53:40 by fjuras           ###   ########.fr       */
+/*   Updated: 2022/05/01 23:15:47 by fjuras           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "get_next_line.h"
-
-/**
- * @brief Copy `len` bytes from `src` to `dst`, which may overlap. 
- * @param dst copy destination address
- * @param src copy destination source
- * @param len number of bytes to copy
- * @return void* pointer to destination
- */
-void	*ft_memcpy(void *dst, const void *src, size_t len)
-{
-	size_t				i;
-	unsigned char		*d;
-	const unsigned char	*s;
-
-	d = (unsigned char *) dst;
-	s = (const unsigned char *) src;
-	i = 0;
-	if (dst < src)
-	{
-		while (i < len)
-		{
-			d[i] = s[i];
-			i++;
-		}
-	}
-	else if (dst > src)
-	{
-		while (i < len)
-		{
-			d[len - i - 1] = s[len - i - 1];
-			i++;
-		}
-	}
-	return (dst);
-}
+#include "libft.h"
+#include "ft_get_next_line_utils.h"
 
 /**
  * @brief Return length of string `s` or 0 if `s` is null. 

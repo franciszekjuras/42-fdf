@@ -6,6 +6,43 @@
 #include "gf.h"
 #include "gf_int.h"
 
+
+// static void	gf_line_put_x(
+// 	t_gf_ctx *ctx, t_gf_point beg, t_gf_point end, int good_color)
+// {
+// 	double		a;
+// 	int			x;
+// 	t_gf_point	pt;
+
+// 	a = (double)(end.y - beg.y) / (end.x - beg.x);
+// 	x = beg.x;
+// 	while (x < end.x)
+// 	{
+// 		pt.x = x;
+// 		pt.y = beg.y + ((int)(a * (x - beg.x)));
+// 		ctx->img.pxput(&ctx->img, pt, good_color);
+// 		++x;
+// 	}
+// }
+
+// static void	gf_line_put_y(
+// 	t_gf_ctx *ctx, t_gf_point beg, t_gf_point end, int good_color)
+// {
+// 	double		a;
+// 	int			y;
+// 	t_gf_point	pt;
+
+// 	a = (double)(end.x - beg.x) / (end.y - beg.y);
+// 	y = beg.y;
+// 	while (y < end.y)
+// 	{
+// 		pt.y = y;
+// 		pt.x = beg.x + ((int)(a * (y - beg.y)));
+// 		ctx->img.pxput(&ctx->img, pt, good_color);
+// 		++y;
+// 	}
+// }
+
 static void	gf_line_put_x(
 	t_gf_ctx *ctx, t_gf_point beg, t_gf_point end, int good_color)
 {
